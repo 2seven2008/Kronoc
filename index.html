@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kronoc — Software Otimizado para Infraestrutura</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        scrollbar-width: none;
+      }
+
+      :root {
+        --blue-900: #042c53;
+        --blue-800: #0c447c;
+        --blue-600: #185fa5;
+        --blue-400: #378add;
+        --blue-100: #b5d4f4;
+        --blue-50: #e6f1fb;
+        --orange: #e87020;
+        --orange-light: #f5a055;
+        --orange-pale: #fef0e6;
+        --white: #ffffff;
+        --gray-light: #f7f8fa;
+        --gray-mid: #8a8f99;
+        --gray-dark: #2c2c2a;
+        --font-display: "Montserrat", sans-serif;
+        --font-body: "Poppins", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-body);
+        color: var(--gray-dark);
+        background: var(--white);
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 6vw;
+        height: 68px;
+        background: rgba(4, 44, 83, 0.97);
+        backdrop-filter: blur(8px);
+      }
+      .nav-logo {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.55rem;
+        color: var(--white);
+        letter-spacing: -0.5px;
+      }
+      .nav-logo span {
+        color: var(--orange);
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--orange-light);
+      }
+
+      /* HERO */
+      .hero {
+        min-height: 100vh;
+        background: linear-gradient(
+          135deg,
+          var(--blue-900) 0%,
+          var(--blue-800) 55%,
+          #0e3a6b 100%
+        );
+        display: flex;
+        align-items: center;
+        padding: 100px 6vw 60px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -120px;
+        right: -100px;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(232, 112, 32, 0.12) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        bottom: -80px;
+        left: -60px;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(55, 138, 221, 0.15) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .hero-content {
+        max-width: 700px;
+        position: relative;
+        z-index: 1;
+      }
+      .hero-eyebrow {
+        display: inline-block;
+        font-family: var(--font-body);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--orange-light);
+        border: 1px solid rgba(232, 112, 32, 0.4);
+        border-radius: 100px;
+        padding: 6px 18px;
+        margin-bottom: 1.6rem;
+      }
+      .hero h1 {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+        line-height: 1.08;
+        color: var(--white);
+        letter-spacing: -0.03em;
+        margin-bottom: 1.5rem;
+      }
+      .hero h1 .accent {
+        color: var(--orange);
+      }
+      .hero p {
+        font-size: 1.08rem;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.72);
+        max-width: 560px;
+        margin-bottom: 2.6rem;
+      }
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--orange);
+        color: var(--white);
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        padding: 15px 32px;
+        border-radius: 100px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .hero-cta:hover {
+        background: var(--orange-light);
+        transform: translateY(-2px);
+      }
+      .hero-cta svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .hero-slogan {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 600;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.45);
+        letter-spacing: 0.01em;
+      }
+      .hero-slogan span {
+        color: var(--orange-light);
+      }
+
+      /* SECTION BASE */
+      section {
+        padding: 100px 6vw;
+      }
+      .section-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--orange);
+        margin-bottom: 0.8rem;
+      }
+      .section-title {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        line-height: 1.15;
+        color: var(--blue-900);
+        letter-spacing: -0.02em;
+        margin-bottom: 1.2rem;
+      }
+      .section-lead {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: #5a6070;
+        max-width: 640px;
+      }
+
+      /* SOBRE */
+      .sobre {
+        background: var(--gray-light);
+      }
+      .sobre-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        margin-top: 3.5rem;
+      }
+      .sobre-text p {
+        font-size: 0.97rem;
+        line-height: 1.9;
+        color: #4a5060;
+        margin-bottom: 1.1rem;
+      }
+      .sobre-sigla {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 2.5rem;
+        border-left: 4px solid var(--orange);
+      }
+      .sobre-sigla h3 {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--blue-800);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.4rem;
+      }
+      .sigla-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 1rem;
+      }
+      .sigla-letter {
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--orange);
+        line-height: 1;
+        min-width: 28px;
+      }
+      .sigla-def {
+        font-size: 0.9rem;
+        line-height: 1.55;
+        color: #5a6070;
+      }
+      .sigla-def strong {
+        color: var(--blue-900);
+        font-weight: 600;
+      }
+
+      /* MISSÃO VISÃO VALORES */
+      .mvv-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        margin-top: 3.5rem;
+      }
+      .mvv-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 2.4rem 2rem;
+        border: 1px solid #e8ecf2;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .mvv-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(4, 44, 83, 0.1);
+      }
+      .mvv-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--orange);
+      }
+      .mvv-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: var(--orange-pale);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.4rem;
+      }
+      .mvv-icon svg {
+        width: 26px;
+        height: 26px;
+        color: var(--orange);
+      }
+      .mvv-card h3 {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: var(--blue-900);
+        margin-bottom: 0.9rem;
+        letter-spacing: -0.01em;
+      }
+      .mvv-card p {
+        font-size: 0.88rem;
+        line-height: 1.8;
+        color: #5a6070;
+      }
+
+      /* VALORES GRID */
+      .valores {
+        background: var(--blue-900);
+      }
+      .valores .section-title {
+        color: var(--white);
+      }
+      .valores .section-lead {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .valores-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-top: 3.5rem;
+      }
+      .valor-item {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 1.8rem 1.6rem;
+        transition: background 0.2s;
+      }
+      .valor-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .valor-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--orange);
+        margin-bottom: 1rem;
+      }
+      .valor-item h4 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+      .valor-item p {
+        font-size: 0.82rem;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      /* IDENTIDADE VISUAL */
+      .identidade {
+        background: var(--gray-light);
+      }
+      .id-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        margin-top: 3.5rem;
+      }
+      .cores-block h3 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--blue-900);
+        margin-bottom: 1.2rem;
+      }
+      .cor-swatches {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+      .swatch {
+        border-radius: 12px;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 8px;
+      }
+      .swatch span {
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .tipo-block h3 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--blue-900);
+        margin-bottom: 1.2rem;
+      }
+      .tipo-sample {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 1px solid #e8ecf2;
+        margin-bottom: 1.2rem;
+      }
+      .tipo-sample .t-display {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--blue-900);
+        line-height: 1.1;
+        margin-bottom: 0.3rem;
+      }
+      .tipo-sample .t-label {
+        font-size: 0.72rem;
+        color: var(--gray-mid);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .tipo-sample .t-body {
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        color: #5a6070;
+        line-height: 1.75;
+        margin-top: 1rem;
+        border-top: 1px solid #f0f2f5;
+        padding-top: 1rem;
+      }
+
+      /* EQUIPE */
+      .equipe-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        margin-top: 3.5rem;
+      }
+      .membro-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 2.2rem 1.8rem;
+        text-align: center;
+        border: 1px solid #e8ecf2;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .membro-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(4, 44, 83, 0.09);
+      }
+      .avatar {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        margin: 0 auto 1.2rem;
+        background: var(--blue-50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--blue-800);
+        border: 3px solid var(--orange);
+      }
+      .membro-card h4 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--blue-900);
+        margin-bottom: 0.3rem;
+      }
+      .membro-card .cargo {
+        font-size: 0.78rem;
+        color: var(--orange);
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.8rem;
+      }
+      .membro-card .contato {
+        font-size: 0.8rem;
+        color: #8a8f99;
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--blue-900);
+        padding: 3rem 6vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-logo {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: var(--white);
+      }
+      .footer-logo span {
+        color: var(--orange);
+      }
+      .footer-tagline {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 4px;
+      }
+      .footer-right {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.35);
+        text-align: right;
+      }
+
+      /* ODS badge */
+      .ods-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(55, 138, 221, 0.12);
+        border: 1px solid rgba(55, 138, 221, 0.25);
+        border-radius: 100px;
+        padding: 8px 18px;
+        margin-top: 1.5rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--blue-100);
+      }
+      .ods-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--blue-400);
+      }
+
+      @media (max-width: 860px) {
+        .sobre-grid,
+        .id-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .mvv-grid,
+        .equipe-grid {
+          grid-template-columns: 1fr;
+        }
+        nav .nav-links {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">Kro<span>noc</span></div>
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#missao">Missão & Visão</a></li>
+        <li><a href="#valores">Valores</a></li>
+        <li><a href="#identidade">Identidade</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Software · Infraestrutura · Inovação</div>
+        <h1>
+          Transformando <span class="accent">infraestruturas</span><br />
+          com tecnologia inteligente
+        </h1>
+        <p>
+          Desenvolvemos soluções de software otimizadas para modernizar
+          ambientes que precisam evoluir e construir bases onde ainda não
+          existem. Inteligência aplicada com propósito real.
+        </p>
+        <a href="#sobre" class="hero-cta">
+          Conheça a Kronoc
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
+        </a>
+        <div class="hero-slogan">
+          <span>"A loucura de pensar diferente</span> e fazer melhor."
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="sobre" id="sobre">
+      <div class="section-label">Quem somos</div>
+      <div class="section-title">
+        Software Otimizado para<br />Inovar Infraestruturas
+      </div>
+      <p class="section-lead">
+        A Kronoc nasce da crença de que tecnologia deve alcançar todos os
+        contextos — dos ambientes mais modernos aos que ainda aguardam uma
+        primeira estrutura digital.
+      </p>
+      <div class="sobre-grid">
+        <div class="sobre-text">
+          <p>
+            A Kronoc representa a união entre conhecimento, inovação e evolução
+            tecnológica. Carregamos no DNA o compromisso de desenvolver soluções
+            inteligentes capazes de transformar infraestruturas, otimizar
+            processos e criar novas oportunidades por meio da tecnologia.
+          </p>
+          <p>
+            Atuamos diretamente na criação e modernização de sistemas, levando
+            soluções acessíveis tanto para grandes infraestruturas quanto para
+            realidades que ainda não possuem base digital estabelecida.
+          </p>
+          <div class="ods-badge">
+            <div class="ods-dot"></div>
+            Alinhada à ODS 9 da ONU — Indústria, Inovação e Infraestrutura
+          </div>
+        </div>
+        <div class="sobre-sigla">
+  <h3>O que significa KRONOC</h3>
+
+  <div class="sigla-row">
+    <div class="sigla-letter">K</div>
+    <div class="sigla-def">
+      <strong>Knowledge</strong> — conhecimento aplicado para gerar
+      soluções inteligentes
+    </div>
+  </div>
+
+  <div class="sigla-row">
+    <div class="sigla-letter">R</div>
+    <div class="sigla-def">
+      <strong>Revolução</strong> — transformar realidades através da
+      tecnologia
+    </div>
+  </div>
+
+  <div class="sigla-row">
+    <div class="sigla-letter">O</div>
+    <div class="sigla-def">
+      <strong>Otimização</strong> — melhorar processos e aumentar a
+      eficiência
+    </div>
+  </div>
+
+  <div class="sigla-row">
+    <div class="sigla-letter">N</div>
+    <div class="sigla-def">
+      <strong>Novas Tecnologias</strong> — buscar constantemente a
+      inovação
+    </div>
+  </div>
+
+  <div class="sigla-row">
+    <div class="sigla-letter">O</div>
+    <div class="sigla-def">
+      <strong>Oportunidades</strong> — criar caminhos para crescimento e
+      desenvolvimento
+    </div>
+  </div>
+
+  <div class="sigla-row">
+    <div class="sigla-letter">C</div>
+    <div class="sigla-def">
+      <strong>Conectividade</strong> — conectar pessoas, sistemas e
+      infraestruturas
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSÃO VISÃO -->
+    <section id="missao" style="background: var(--white)">
+      <div class="section-label">Propósito</div>
+      <div class="section-title">Missão, Visão e Compromisso</div>
+      <p class="section-lead">
+        Cada decisão que tomamos é guiada por um propósito claro: transformar
+        realidades por meio da tecnologia, com inteligência e planejamento.
+      </p>
+      <div class="mvv-grid">
+        <div class="mvv-card">
+          <div class="mvv-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4l3 3" />
+            </svg>
+          </div>
+          <h3>Missão</h3>
+          <p>
+            Desenvolver e implementar softwares otimizados para infraestrutura,
+            com foco em inovação, eficiência e acessibilidade. Levar soluções
+            inteligentes tanto a ambientes que necessitam de modernização quanto
+            àqueles que ainda não possuem estrutura digital.
+          </p>
+        </div>
+        <div class="mvv-card">
+          <div class="mvv-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+          <h3>Visão</h3>
+          <p>
+            Ser reconhecida como referência na transformação de infraestruturas
+            por meio da tecnologia — liderando a modernização de sistemas
+            antigos e a criação de soluções onde ainda não existem bases
+            estruturadas, com impacto real e sustentável na sociedade.
+          </p>
+        </div>
+        <div class="mvv-card">
+          <div class="mvv-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          </div>
+          <h3>Compromisso</h3>
+          <p>
+            Ser símbolo de inteligência aplicada, visão de futuro e
+            desenvolvimento sustentável — promovendo soluções que conectam
+            passado e futuro, alinhadas com os princípios da ONU e os objetivos
+            da ODS 9.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALORES -->
+    <section class="valores" id="valores">
+      <div class="section-label" style="color: var(--orange-light)">
+        Nossa essência
+      </div>
+      <div class="section-title">Os valores que nos guiam</div>
+      <p class="section-lead">
+        Mais do que princípios escritos, são os ideais que moldam cada linha de
+        código, cada decisão e cada relação.
+      </p>
+      <div class="valores-grid">
+        <div class="valor-item">
+          <div class="valor-dot"></div>
+          <h4>Inovação</h4>
+          <p>
+            Buscar constantemente novas soluções e melhorias em tudo que
+            fazemos.
+          </p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-dot"></div>
+          <h4>Sabedoria</h4>
+          <p>
+            Inspirados por Atena, tomamos decisões estratégicas e bem
+            fundamentadas.
+          </p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-dot"></div>
+          <h4>Eficiência</h4>
+          <p>
+            Otimizar processos para gerar os melhores resultados com
+            inteligência.
+          </p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-dot"></div>
+          <h4>Acessibilidade</h4>
+          <p>
+            Levar tecnologia a todos os níveis de infraestrutura, sem exceção.
+          </p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-dot"></div>
+          <h4>Sustentabilidade</h4>
+          <p>Promover desenvolvimento equilibrado, duradouro e consciente.</p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-dot"></div>
+          <h4>Compromisso</h4>
+          <p>
+            Foco absoluto em resultados reais e impacto positivo nas pessoas.
+          </p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-dot"></div>
+          <h4>Evolução contínua</h4>
+          <p>Aprender, adaptar e crescer sem cessar — isso é o que nos move.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- IDENTIDADE VISUAL -->
+    <section class="identidade" id="identidade">
+      <div class="section-label">Marca</div>
+      <div class="section-title">Identidade Visual</div>
+      <p class="section-lead">
+        Azul e laranja unidos para transmitir estrutura e inovação — a base
+        sólida que sustenta, e a energia que transforma.
+      </p>
+      <div class="id-grid">
+        <div>
+          <div class="cores-block">
+            <h3>Paleta de Cores</h3>
+            <div class="cor-swatches">
+              <div class="swatch" style="background: #042c53">
+                <span>#042C53</span>
+              </div>
+              <div class="swatch" style="background: #0c447c">
+                <span>#0C447C</span>
+              </div>
+              <div class="swatch" style="background: #185fa5">
+                <span>#185FA5</span>
+              </div>
+              <div class="swatch" style="background: var(--orange)">
+                <span>#E87020</span>
+              </div>
+              <div class="swatch" style="background: var(--orange-light)">
+                <span>#F5A055</span>
+              </div>
+            </div>
+            <p style="font-size: 0.85rem; line-height: 1.8; color: #5a6070">
+              O <strong style="color: var(--blue-900)">azul</strong> representa
+              tecnologia, confiança e estabilidade — a infraestrutura como base.
+              O <strong style="color: var(--orange)">laranja</strong> traz
+              inovação, energia e transformação, criando contraste e dinamismo
+              na identidade.
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="tipo-block">
+            <h3>Tipografia</h3>
+            <div class="tipo-sample">
+              <div class="t-label">Display / Títulos</div>
+              <div class="t-display">Montserrat</div>
+              <div class="t-body">
+                Poppins — fonte para textos de corpo, descrições e informações.
+                Legibilidade e modernidade para comunicar com clareza.
+              </div>
+            </div>
+            <p style="font-size: 0.85rem; color: #5a6070; line-height: 1.7">
+              Combinação pensada para unir força e modernidade tecnológica —
+              Montserrat nos títulos com impacto, Poppins no corpo com fluidez.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EQUIPE -->
+    <section style="background: var(--white)" id="equipe">
+      <div class="section-label">Pessoas</div>
+      <div class="section-title">Nosso time</div>
+      <p class="section-lead">
+        Três desenvolvedores movidos pela mesma crença: tecnologia inteligente
+        pode transformar qualquer realidade.
+      </p>
+      <div class="equipe-grid">
+        <div class="membro-card">
+          <div class="avatar">GF</div>
+          <h4>Gabriel Araujo</h4>
+          <div class="cargo">Desenvolvedor Backend & Analista</div>
+        </div>
+        <div class="membro-card">
+          <div class="avatar">GA</div>
+          <h4>Gustavo Abade</h4>
+          <div class="cargo">Designer</div>
+        </div>
+        <div class="membro-card">
+          <div class="avatar">JP</div>
+          <h4>João Victor</h4>
+          <div class="cargo">Desenvolvedor Frontend</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <div class="footer-logo">Kro<span>noc</span></div>
+        <div class="footer-tagline">
+          A loucura de pensar diferente e fazer melhor.
+        </div>
+      </div>
+      <div class="footer-right">
+        Etec de Heliopolis Arq. Ruy Ohtake — Desenvolvimento de Sistemas<br />
+        © 2025 Kronoc. Todos os direitos reservados.
+      </div>
+    </footer>
+  </body>
+</html>
